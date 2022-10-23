@@ -11,4 +11,4 @@ jobs:
       - name: lint docker file
         uses: rusty-actions/dockerfile-linter@v1
         with:
-          dockerfile: .
+          dockerfile: ./Dockerfile
