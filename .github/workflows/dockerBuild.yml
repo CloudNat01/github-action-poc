@@ -1,0 +1,19 @@
+name: Docker build phase
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    name: Docker build process
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log into dockerhub
+      - run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
+      - name: Build the dockerfile
+      - run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USER }}/first-gha-img:latest
+      - name: Docker push
+      - run: docker push ${{ secrets.DOCKER_HUB_USER }}/first-gha-img:latest
